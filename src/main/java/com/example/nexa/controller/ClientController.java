@@ -1,24 +1,21 @@
 package com.example.nexa.controller;
 
 import com.example.nexa.dto.ClientDTO;
+import com.example.nexa.entity.Client;
 import com.example.nexa.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(value = "api/v1/client")
-@CrossOrigin
+@RequestMapping(value = "/api/client")
 public class ClientController {
 
     @Autowired
     private ClientService clientService;
 
-    @GetMapping("/getClients")
-    public List<ClientDTO> getClients() {
-        return clientService.getAllClients();
-
+    @PostMapping("/saveClient")
+    public Client registerClient(@RequestBody ClientDTO clientDTO) {
+        return clientService.saveClient(clientDTO);
     }
 
     @GetMapping("/getClientByClientEmailAndPassword/{clientEmail}/{password}")
@@ -26,16 +23,6 @@ public class ClientController {
         System.out.println("Client Email :" + clientEmail + " Password :" + password);
         return clientService.getClientByClientEmailAndPassword(clientEmail, password);
     }
-
-    @PostMapping("/saveClient")
-    public ClientDTO saveClient(@RequestBody ClientDTO clientDTO) {
-        return clientService.saveClient(clientDTO);
-    }
-
-//    @PostMapping("/check-email")
-//    public boolean checkEmailExists(@RequestBody String email) {
-//        return clientService.checkEmailExists(email);
-//    }
 
     @PostMapping("/check-email")
     public boolean checkEmailExists(@RequestBody String email) {

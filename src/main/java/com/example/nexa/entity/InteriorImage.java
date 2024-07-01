@@ -1,54 +1,76 @@
 package com.example.nexa.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
+import java.sql.Timestamp;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Entity
-@IdClass(InteriorKey.class)
 public class InteriorImage {
+
     @Id
-    private String email;
-    @Id
-    private int id;
-    private String augmented_image;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long imageid;
+    private Long clientid;
+    private String roomImageUrl;
     private String texture;
-    private float complexity_score;
-    private String interior_type;
-    private String image_url;
+    private Float complexityScore;
+    private Timestamp timeStamp;
+    private String augmentedImageUrl;
 
-    @ManyToOne
-    @MapsId("email")
-    @JoinColumn(name = "email")
-    private Client client;
+    // Getters and Setters
 
-    // Getters
-    public String getAugmentedImage() {
-        return augmented_image;
+    public Long getImageid() {
+        return imageid;
+    }
+
+    public void setImageid(Long imageid) {
+        this.imageid = imageid;
+    }
+
+    public Long getClientid() {
+        return clientid;
+    }
+
+    public void setClientid(Long clientid) {
+        this.clientid = clientid;
+    }
+
+    public String getRoomImageUrl() {
+        return roomImageUrl;
+    }
+
+    public void setRoomImageUrl(String roomImageUrl) {
+        this.roomImageUrl = roomImageUrl;
     }
 
     public String getTexture() {
         return texture;
     }
 
-    public float getComplexityScore() {
-        return complexity_score;
+    public void setTexture(String texture) {
+        this.texture = texture;
     }
 
-    public String getInteriorType() {
-        return interior_type;
+    public Float getComplexityScore() {
+        return complexityScore;
     }
 
-    public String getImageUrl(){
-        return image_url;
+    public void setComplexityScore(Float complexityScore) {
+        this.complexityScore = complexityScore;
     }
 
-    public int getId() {
-        return id;
+    public Timestamp getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Timestamp timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public String getAugmentedImageUrl() {
+        return augmentedImageUrl;
+    }
+
+    public void setAugmentedImageUrl(String augmentedImageUrl) {
+        this.augmentedImageUrl = augmentedImageUrl;
     }
 }

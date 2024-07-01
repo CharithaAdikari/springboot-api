@@ -1,7 +1,7 @@
 package com.example.nexa.controller;
 
 import com.example.nexa.entity.Client;
-import com.example.nexa.repo.ClientRepo;
+import com.example.nexa.repository.ClientRepository;
 import com.example.nexa.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,18 +17,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
-    private ClientRepo clientRepo;
+    private ClientRepository clientRepository;
 
     @Autowired
     private EmailService emailService;
 
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestParam String email) {
-        Client client = clientRepo.findByEmail(email);
+        Client client = clientRepository.findByEmail(email);
         System.out.println(email);
         if (client == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
@@ -36,7 +36,7 @@ public class AuthController {
 
         String newPassword = generateRandomPassword();
         client.setPassword(newPassword);
-        clientRepo.save(client);
+        clientRepository.save(client);
         String dateAndTime = timeAndDate();
 
         emailService.sendEmail(client.getEmail(), "NEXA Password rest code", "password reset codde is: " + newPassword+"\nTime stamp : "+dateAndTime);
@@ -46,7 +46,7 @@ public class AuthController {
 
     @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(@RequestParam String email,@RequestParam String code,@RequestParam String password) {
-        Client client = clientRepo.findByEmail(email);
+        Client client = clientRepository.findByEmail(email);
         System.out.println(email);
         System.out.println(code);
         System.out.println(password);
@@ -56,7 +56,7 @@ public class AuthController {
         }
         else {
             client.setPassword(password);
-            clientRepo.save(client);
+            clientRepository.save(client);
             return ResponseEntity.ok("Password reset");
 
         }

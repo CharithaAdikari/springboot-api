@@ -1,50 +1,77 @@
 package com.example.nexa.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
 public class Client {
-    @Id
-    private String email;
-    private String name;
-    private String gender;
-    private String b_date;
-    private String user_group;
-    private String password;
-    @OneToMany(mappedBy = "client")
-    private Set<InteriorImage> interiorImages;
 
-    public String getEmail() {
-        return this.email;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long clientID;
+
+    private String email;
+    private String gender;
+    private String name;
+    private Date bdate;
+    private String password;
+    private String userGroup;
+
+    // Getters and Setters
+
+    public Long getClientID() {
+        return clientID;
     }
 
-    public void setPassword(String newPassword) {
-        this.password = newPassword;
+    public void setClientID(Long clientID) {
+        this.clientID = clientID;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getBdate() {
+        return bdate;
+    }
+
+    public void setBdate(Date bdate) {
+        this.bdate = bdate;
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
-    public void setUser_group(String user_group) {
-        this.user_group = user_group;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getBDate() {
-        return b_date;
+    public String getUserGroup() {
+        return userGroup;
     }
 
-    public void setBDate(String b_date) {
-        this.b_date = b_date;
+    public void setUserGroup(String userGroup) {
+        this.userGroup = userGroup;
     }
 }

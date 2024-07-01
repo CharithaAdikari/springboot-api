@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -16,9 +13,20 @@ import javax.persistence.IdClass;
 @IdClass(ColorPalletColorCodeKey.class)
 public class ColorPalletColorCode {
     @Id
+    @Column(insertable = false, updatable = false)
     private String email;
+
     @Id
-    private int ColorPalletColorId;
-    private String ColorCode;
+    private int colorPalletColorId;
+    private String colorCode;
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false),
+            @JoinColumn(name = "imageColorPalletId", referencedColumnName = "imageColorPalletId", insertable = false, updatable = false)
+    })
+    private ColorPallet colorPallet;
+
+
 
 }

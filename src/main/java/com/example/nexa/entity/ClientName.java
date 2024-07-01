@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 @NoArgsConstructor
@@ -16,4 +17,7 @@ public class ClientName {
     private String email;
     private String Fname;
     private String Lname;
+
+    @OneToOne(mappedBy = "clientName")
+    private Client client;
 }

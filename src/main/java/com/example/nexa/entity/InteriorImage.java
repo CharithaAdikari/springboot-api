@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,11 +23,11 @@ public class InteriorImage {
     private String TimeStamp;
     private String InteriorImageUrl;
 
-//    @ManyToOne
-//    @MapsId("email")
-//    @JoinColumn(name = "email")
-//    private Client client;
+    @ManyToOne
+    @JoinColumn(name = "email", insertable = false, updatable = false)
+    private Client client;
 
-
+    @OneToMany(mappedBy = "interiorImage", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Generate> generates;
 
 }

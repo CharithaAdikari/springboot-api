@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -21,4 +19,9 @@ public class ColorPallet {
     private String email;
     private String rating;
 
+    @OneToMany(mappedBy = "colorPallet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ColorPalletColorCode> colorCodes;
+
+    @OneToMany(mappedBy = "colorPallet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Generate> generates;
 }

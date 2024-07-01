@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 @NoArgsConstructor
@@ -29,4 +30,7 @@ public class ClientPreferences {
     private boolean photosensitivity;
     private boolean richColorChecked;
     private String preferredAmbiance;
+
+    @OneToOne(mappedBy = "clientPreferences")
+    private Client client;
 }
